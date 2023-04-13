@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tab2</title>
+</head>
+<body>
+<h1 id="name"></h1>
+
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="./message.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var channel = createChannel('update-name');
+
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]);
+            return null; //返回参数值
+        }
+
+        var id = getUrlParam('id');
+        if (id) {
+            $('#name').text(id);
+        }
+
+        channel.addEventListener('message', (e) => {
+            var _name = e.data.id;
+            $('#name').text(_name);
+        })
+    });
+</script>
+</body>
+</html>
