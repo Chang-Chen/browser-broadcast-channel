@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tab1</title>
+    <style type="text/css">
+        ul {
+
+        }
+
+        ul li {
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        ul li:hover {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li class="name" id="111"><span>业务id: </span><span class="id">111</span></li>
+    <li class="name" id="222"><span>业务id: </span><span class="id">222</span></li>
+    <li class="name" id="333"><span>业务id: </span><span class="id">333</span></li>
+</ul>
+
+<!--<a href="./tab2.html" target="_blank">打开tab2页面</a>-->
+
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="./message.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var channel = createChannel('update-name');
+
+        $(document).on('click', '.name', function (e) {
+            var id = $(this).attr('id');
+            if (channel.listeners.size === 0) {
+                window.open('./tab2.html?id=' + id, '_blank');
+            } else {
+                channel.postMessage({
+                    id: id
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
